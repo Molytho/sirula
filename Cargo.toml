@@ -5,7 +5,6 @@ authors = ["Dorian Rudolph"]
 edition = "2018"
 
 [dependencies]
-locale-types = "0.4.0"
 libc = "0.2.103"
 gtk-layer-shell = "0.4.1"
 gtk = { version = "0.15.5", features = ["v3_22"] }
@@ -14,7 +13,6 @@ gdk = "0.15.4"
 pango = "0.15.4"
 gdk-pixbuf = "0.15.11"
 glib = "0.15.12"
-futures = "0.3.21"
 fuzzy-matcher = "0.3.7"
 xdg = "2.4.1"
 serde = "1.0.138"

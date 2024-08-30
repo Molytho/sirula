@@ -16,8 +16,8 @@ along with sirula.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 use crate::consts::*;
-use gio::{prelude::{AppInfoExt, AppInfoExtManual}, AppInfo, AppInfoCreateFlags};
-use glib::{shell_parse_argv, GString, MainContext, ObjectExt};
+use gio::{prelude::AppInfoExt, AppInfo};
+use glib::shell_parse_argv;
 use gtk::{prelude::CssProviderExt, CssProvider};
 use std::path::PathBuf;
 use std::process::Command;
