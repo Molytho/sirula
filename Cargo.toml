@@ -13,11 +13,11 @@ pango = "0.15.4"
 gdk-pixbuf = "0.15.11"
 glib = "0.15.12"
 fuzzy-matcher = "0.3.7"
-xdg = "2.4.1"
-serde = "1.0.138"
-serde_derive = "1.0.138"
-toml = "0.5.9"
-regex = "1.6.0"
+xdg = "2.5.2"
+serde = "1.0.209"
+serde_derive = "1.0.209"
+toml = "0.8.19"
+regex = "1.10.6"
 
 [profile.release]
 lto = true
