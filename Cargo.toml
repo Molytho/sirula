@@ -16,7 +16,7 @@ fuzzy-matcher = "0.3.7"
 xdg = "2.5.2"
 serde = "1.0.209"
 serde_derive = "1.0.209"
-toml = "0.8.19"
+toml = "0.5.9"
 regex = "1.10.6"
 
 [profile.release]
