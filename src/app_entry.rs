@@ -17,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with sirula.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-use crate::locale::string_collate;
 use fuzzy_matcher::{skim::SkimMatcherV2, FuzzyMatcher};
 use gio::AppInfo;
 use glib::shell_unquote;
@@ -102,7 +101,7 @@ impl Ord for AppEntry {
         match self.score.cmp(&other.score) {
             Ordering::Equal => match self.history.usage_count.cmp(&other.history.usage_count) {
                 Ordering::Equal => match self.history.last_used.cmp(&other.history.last_used) {
-                    Ordering::Equal => string_collate(&self.display_string, &other.display_string),
+                    Ordering::Equal => self.display_string.cmp(&other.display_string),
                     ord => ord.reverse(),
                 },
                 ord => ord.reverse(),

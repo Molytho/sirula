@@ -23,7 +23,6 @@ use gtk::{
     prelude::*,
     ListBoxRow,
 };
-use libc::LC_ALL;
 use std::env::args;
 use std::{cell::RefCell, collections::HashMap, rc::Rc};
 
@@ -38,9 +37,6 @@ use util::*;
 
 mod app_entry;
 use app_entry::*;
-
-mod locale;
-use locale::*;
 
 mod history;
 use history::*;
@@ -195,8 +191,6 @@ fn app_startup(application: &gtk::Application) {
 }
 
 fn main() {
-    set_locale(LC_ALL, "");
-
     let application = gtk::Application::new(Some(APP_ID), Default::default());
 
     application.connect_startup(|app| {
