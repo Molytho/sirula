@@ -16,7 +16,6 @@ along with sirula.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 use crate::consts::*;
-use freedesktop_entry_parser::parse_entry;
 use gio::{prelude::{AppInfoExt, AppInfoExtManual}, AppInfo, AppInfoCreateFlags};
 use glib::{shell_parse_argv, GString, MainContext, ObjectExt};
 use gtk::{prelude::CssProviderExt, CssProvider};
@@ -69,46 +68,13 @@ pub fn launch_cmd(cmd_line: &str) {
     child.spawn().expect("Error spawning command");
 }
 
-pub fn launch_app(info: &AppInfo, term_command: Option<&str>) {
+pub fn launch_app(info: &AppInfo) {
     let context = gdk::Display::default()
         .unwrap()
         .app_launch_context()
         .unwrap();
 
-    if info
-        .try_property::<GString>("filename")
-        .ok()
-        .and_then(|s| parse_entry(&s).ok())
-        .and_then(|e| {
-            e.section("Desktop Entry")
-                .attr("Terminal")
-                .map(|t| t == "1" || t == "true")
-        })
-        .unwrap_or_default()
-    {
-        let command = match info.commandline().unwrap_or_else(|| {info.executable()}).into_os_string().into_string() {
-            Ok(str) => str,
-            _ => return
-        };
-
-        let commandline = if let Some(term) = term_command {
-            term.replace("{}", command.as_str())
-        } else if let Some(Ok(term)) = std::env::var_os("TERMINAL").map(|str| {str.into_string()}) {
-            format!("{} -e '{}'", term, command)
-        } else {
-            return;
-        };
-
-        let info = AppInfo::create_from_commandline(commandline, None, AppInfoCreateFlags::NONE)
-            .expect("Failed to create AppInfo from commandline");
-        info.launch(&[], Some(&context))
-            .expect("Error while launching terminal app");
-    } else {
-        let future = info.launch_uris_future(&[], Some(&context));
-        MainContext::default()
-            .block_on(future)
-            .expect("Error while launching app");
-    }
+    info.launch(&[], Some(&context)).expect("Error while launching app");
 }
 
 #[macro_export]
